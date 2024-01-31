@@ -4,11 +4,15 @@ import string
 import random
 
 def hash_collision(k):
+    print("k =", k)
     if not isinstance(k,int):
         print( "hash_collision expects an integer" )
         return( b'\x00',b'\x00' )
     if k < 0:
         print( "Specify a positive number of bits" )
+        return( b'\x00',b'\x00' )
+    if k > 5:
+        print( "too long right now" )
         return( b'\x00',b'\x00' )
    
     #Generate random 'X'
@@ -22,7 +26,7 @@ def hash_collision(k):
     while not found:
         #Generate random 'Y' to test
         y_str = ''.join(random.choices(string.ascii_uppercase +
-                                 string.digits, k=k**2))
+                                 string.digits, k=1000))
         y = hashlib.sha256(y_str.encode('utf-8')).hexdigest()
         y_b = y.encode('utf-8')
 
@@ -33,7 +37,7 @@ def hash_collision(k):
     return(x,y)
 
 
-# print(hash_collision(5))
+print(hash_collision(5))
 
 """You can compute SHA256 hashes using hashlib, which works like this.
 def produce_hash(word):
