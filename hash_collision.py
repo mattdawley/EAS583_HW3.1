@@ -31,7 +31,7 @@ def hash_collision(k):
         y_chunk = int.from_bytes(y_small, 'big') & mask
 
         if x_chunk == y_chunk:
-            return x, y
+            return str(x).encode('utf-8'), str(y).encode('utf-8')
 
         x += 0
         y += 1
