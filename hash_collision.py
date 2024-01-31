@@ -3,6 +3,7 @@ import os
 import string
 import random
 
+"""
 def hash_collision2(k):
     print("k =", k)
     if not isinstance(k,int):
@@ -30,7 +31,7 @@ def hash_collision2(k):
 
 #print(hash_collision(7))
 #(82228326, 82228327)
-
+"""
 """You can compute SHA256 hashes using hashlib, which works like this.
 def produce_hash(word):
     h = hashlib.sha256(word.encode('utf-8')).hexdigest()
@@ -73,7 +74,7 @@ m.hexdigest()
 
 
 def hash_collision(k, chunk_size=8):
-
+    print(k)
     if not isinstance(k,int):
         print( "hash_collision expects an integer" )
         return( b'\x00',b'\x00' )
@@ -82,31 +83,32 @@ def hash_collision(k, chunk_size=8):
         return( b'\x00',b'\x00' )
 
     mask = (1 << k) - 1
-    x = 0
+    x = random.randint(0,100)
     y = 1
     while True:
-        print(x)
-        x_hash = hashlib.sha256(str(x).encode('utf-8')).digest()
-        y_hash = hashlib.sha256(str(y).encode('utf-8')).digest()
-        """
-        x_small = str(int(x_hash[-chunk_size], 16)).encode('utf-8')
+
+        x_hash = hashlib.sha256(str(x).encode('utf-8')).hexdigest()
+        y_hash = hashlib.sha256(str(y).encode('utf-8')).hexdigest()
+
+        x_small = str(int(x_hash[-16], 16)).encode('utf-8')
         x_chunk = int.from_bytes(x_small, 'big') & mask
 
-        y_small = str(int(y_hash[-chunk_size], 16)).encode('utf-8')
+        y_small = str(int(y_hash[-16], 16)).encode('utf-8')
         y_chunk = int.from_bytes(y_small, 'big') & mask
 
         """
         x_chunk = int.from_bytes(x_hash[-chunk_size:], 'big') & mask
         y_chunk = int.from_bytes(y_hash[-chunk_size:], 'big') & mask
-
+        """
         if x_chunk == y_chunk:
             return x, y
 
-        x += 1
+        x += 0
         y += 1
 
-"""
-print(hash_collision2(7))
+
+"""for i in range(1, 20):
+    print(i, hash_collision(i))
 #(82228326, 82228327)
 print()
 x = hashlib.sha256(str(49).encode('utf-8')).hexdigest()
