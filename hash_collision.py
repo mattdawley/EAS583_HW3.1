@@ -37,7 +37,7 @@ def hash_collision(k):
     return(x,y)
 
 
-print(hash_collision(5))
+# print(hash_collision(5))
 
 """You can compute SHA256 hashes using hashlib, which works like this.
 def produce_hash(word):
